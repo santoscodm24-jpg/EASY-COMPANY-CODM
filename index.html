@@ -4,53 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EASY COMPANY | Centro de Mando</title>
-    
     <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* CSS INTEGRADO PARA EVITAR PANTALLA BLANCA */
+        :root { --gold: #d4af37; --dark-bg: #050505; --card-bg: #111; --text: #e0e0e0; }
+        body { 
+            margin: 0; background-color: var(--dark-bg); color: var(--text); 
+            font-family: 'Roboto', sans-serif;
+            background-image: radial-gradient(circle, #1a1a1a 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        .hero-section { 
+            height: 40vh; display: flex; flex-direction: column; justify-content: center; 
+            align-items: center; background: linear-gradient(rgba(0,0,0,0.7), #050505), 
+            url('https://wallpaperaccess.com/full/2105128.jpg') center/cover;
+            border-bottom: 3px solid var(--gold); text-align: center;
+        }
+        h1 { font-family: 'Black Ops One', cursive; color: var(--gold); font-size: 3.5rem; margin: 0; text-shadow: 0 0 20px rgba(212,175,55,0.5); }
+        .tactical-nav { background: #000; padding: 15px; position: sticky; top: 0; border-bottom: 1px solid var(--gold); display: flex; justify-content: center; gap: 20px; z-index: 100; }
+        .tactical-nav a { color: white; text-decoration: none; font-weight: bold; font-size: 0.9rem; letter-spacing: 1px; }
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+        .section-title { font-family: 'Black Ops One', cursive; color: var(--gold); border-left: 4px solid var(--gold); padding-left: 15px; }
+        .grid-estrenos { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .card { background: var(--card-bg); border: 1px solid #222; border-radius: 5px; overflow: hidden; border-top: 3px solid var(--gold); }
+        .card img { width: 100%; height: 200px; object-fit: cover; }
+        .card-content { padding: 20px; }
+        .card-sala { background: #0a0a0a; padding: 40px; text-align: center; border: 1px dashed var(--gold); }
+        .btn-ws { display: inline-block; background: var(--gold); color: black; padding: 15px 30px; font-weight: bold; text-decoration: none; border-radius: 3px; font-family: 'Black Ops One'; margin-top: 15px; }
+    </style>
 </head>
 <body>
 
     <header class="hero-section">
-        <div class="header-content">
-            <h1 class="glitch">EASY COMPANY</h1>
-            <p class="subtitle">UNIDAD DE OPERACIONES ESPECIALES - CODM</p>
-        </div>
+        <h1>EASY COMPANY</h1>
+        <p style="letter-spacing: 3px; color: #888;">UNIDAD DE OPERACIONES ESPECIALES</p>
     </header>
 
     <nav class="tactical-nav">
         <a href="#estrenos">ESTRENOS</a>
-        <a href="#salas">SALAS PRIVADAS</a>
-        <a href="admin.html" style="color: var(--gold); border: 1px solid var(--gold); padding: 2px 8px; border-radius: 4px;">ADMIN</a>
+        <a href="#salas">SALAS</a>
+        <a href="admin.html" style="color:var(--gold)">ADMIN</a>
     </nav>
 
     <main class="container">
-        
         <section id="estrenos">
-            <h2 class="section-title">DESPLIEGUE DE CONTENIDO</h2>
+            <h2 class="section-title">DESPLIEGUE</h2>
             <div id="estrenos-container" class="grid-estrenos">
-                <p style="text-align: center; color: #555;">Sincronizando inteligencia táctica...</p>
-            </div>
+                </div>
         </section>
 
-        <hr style="border: 0; border-top: 1px solid #222; margin: 50px 0;">
-
-        <section id="salas">
+        <section id="salas" style="margin-top: 50px;">
             <h2 class="section-title">SISTEMA DE SALAS</h2>
             <div class="card-sala">
-                <h3 style="font-family: 'Black Ops One', cursive; color: var(--gold);">RECLUTAMIENTO ABIERTO</h3>
-                <p>Coordina con el alto mando para obtener ID y contraseña de las próximas salas privadas.</p>
-                <a href="#" id="whatsapp-btn" class="btn-ws" target="_blank">ENVIAR SOLICITUD POR WHATSAPP</a>
+                <p>Contacta para obtener ID y Clave.</p>
+                <a href="#" id="whatsapp-btn" class="btn-ws">WHATSAPP</a>
             </div>
         </section>
-
     </main>
 
-    <footer>
-        <p>&copy; 2026 EASY COMPANY | DISEÑADO PARA LA VICTORIA</p>
-        <small style="color: #333;">Protocolo de seguridad activo: 2026-HQ</small>
-    </footer>
-
-    <script src="js/main.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
