@@ -3,52 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EASY COMPANY | Centro de Operaciones</title>
+    <title>EASY COMPANY | Centro de Mando</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
     <header class="hero-section">
         <div class="header-content">
             <h1 class="glitch">EASY COMPANY</h1>
             <p class="subtitle">UNIDAD DE OPERACIONES ESPECIALES - CODM</p>
         </div>
-        <nav class="tactical-nav">
-            <a href="#estrenos">ESTRENOS</a>
-            <a href="#salas">SALAS PRIVADAS</a>
-            <a href="admin.html" class="admin-link" title="Panel de Mando">⚙️ ADMIN</a>
-        </nav>
     </header>
 
+    <nav class="tactical-nav">
+        <a href="#estrenos">ESTRENOS</a>
+        <a href="#salas">SALAS PRIVADAS</a>
+        <a href="admin.html" style="color: var(--gold); border: 1px solid var(--gold); padding: 2px 8px; border-radius: 4px;">ADMIN</a>
+    </nav>
+
     <main class="container">
-        <section id="estrenos" class="section-box">
+        
+        <section id="estrenos">
             <h2 class="section-title">DESPLIEGUE DE CONTENIDO</h2>
-            
             <div id="estrenos-container" class="grid-estrenos">
-                <div class="loading-data" style="text-align: center; padding: 20px; color: var(--gold);">
-                    <p>Sincronizando inteligencia táctica... 📡</p>
-                </div>
+                <p style="text-align: center; color: #555;">Sincronizando inteligencia táctica...</p>
             </div>
         </section>
 
-        <hr class="separator">
+        <hr style="border: 0; border-top: 1px solid #222; margin: 50px 0;">
 
-        <section id="salas" class="section-box">
-            <h2 class="section-title">SISTEMA DE RECLUTAMIENTO</h2>
+        <section id="salas">
+            <h2 class="section-title">SISTEMA DE SALAS</h2>
             <div class="card-sala">
-                <p>Únete a nuestra próxima sala privada. Coordina tu despliegue directamente con el alto mando.</p>
-                
-                <a href="#" id="whatsapp-btn" class="btn-ws" target="_blank">CONTACTAR AL CUARTEL VÍA WHATSAPP</a>
+                <h3 style="font-family: 'Black Ops One', cursive; color: var(--gold);">RECLUTAMIENTO ABIERTO</h3>
+                <p>Coordina con el alto mando para obtener ID y contraseña de las próximas salas privadas.</p>
+                <a href="#" id="whatsapp-btn" class="btn-ws" target="_blank">ENVIAR SOLICITUD POR WHATSAPP</a>
             </div>
         </section>
+
     </main>
 
     <footer>
-        <div class="footer-content">
-            <p>&copy; 2026 EASY COMPANY - Sin retroceder, sin rendirse.</p>
-        </div>
+        <p>&copy; 2026 EASY COMPANY | DISEÑADO PARA LA VICTORIA</p>
+        <small style="color: #333;">Protocolo de seguridad activo: 2026-HQ</small>
     </footer>
 
     <script src="js/main.js"></script>
