@@ -1,0 +1,47 @@
+:root {
+    --gold: #d4af37;
+    --dark: #121212;
+    --gray: #1e1e1e;
+    --white: #e0e0e0;
+}
+
+body {
+    background-color: var(--dark);
+    color: var(--white);
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0;
+}
+
+header {
+    background: linear-gradient(to bottom, #000, var(--gray));
+    padding: 20px;
+    text-align: center;
+    border-bottom: 2px solid var(--gold);
+}
+
+h1 { color: var(--gold); letter-spacing: 5px; }
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.card {
+    background: var(--gray);
+    border: 1px solid #333;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.btn-whatsapp {
+    background-color: #25d366;
+    color: white;
+    padding: 15px 25px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    border-radius: 5px;
+    margin-top: 10px;
+}
