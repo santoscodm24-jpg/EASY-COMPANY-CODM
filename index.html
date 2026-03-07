@@ -3,54 +3,313 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EASY COMPANY | HQ</title>
-    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
+    <title>EASY COMPANY | HQ TACTICAL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <style>
-        :root { --gold: #d4af37; --bg: #050505; --card: #111; }
-        body { margin: 0; background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; }
-        header { height: 30vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(rgba(0,0,0,0.8), #000), url('https://wallpaperaccess.com/full/2105128.jpg') center/cover; border-bottom: 4px solid var(--gold); }
-        h1 { font-family: 'Black Ops One', cursive; color: var(--gold); font-size: clamp(2rem, 10vw, 4rem); text-shadow: 0 0 20px rgba(212,175,55,0.5); }
-        .container { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .card { background: var(--card); border: 1px solid #222; padding: 20px; border-radius: 5px; border-top: 3px solid var(--gold); transition: 0.3s; }
-        .card:hover { transform: translateY(-5px); border-color: var(--gold); }
-        .hall-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 15px; }
-        .player { text-align: center; background: #000; padding: 15px; border: 1px solid #222; }
-        .player img { width: 80px; height: 80px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; }
-        .btn { display: block; text-align: center; padding: 15px; background: var(--gold); color: black; font-weight: bold; text-decoration: none; font-family: 'Black Ops One'; margin-top: 15px; }
-        .tag { display: inline-block; padding: 5px 10px; background: #c00; font-weight: bold; font-size: 0.7rem; margin-bottom: 10px; }
+        :root {
+            --gold: #d4af37;
+            --gold-glow: rgba(212, 175, 55, 0.3);
+            --bg: #050505;
+            --card: rgba(20, 20, 20, 0.8);
+            --border: #222;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: #eee;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Fondo de rejilla táctica */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+            mask-image: radial-gradient(circle, black, transparent 80%);
+        }
+
+        /* Animación de escaneo */
+        body::after {
+            content: "";
+            position: fixed;
+            top: -100%; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(212, 175, 55, 0.05), transparent);
+            animation: scan 8s linear infinite;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        @keyframes scan {
+            0% { top: -100%; }
+            100% { top: 100%; }
+        }
+
+        header {
+            height: 45vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.5), var(--bg)), 
+                        url('https://wallpaperaccess.com/full/2105128.jpg') center/cover;
+            border-bottom: 2px solid var(--gold);
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        h1 {
+            font-family: 'Black Ops One', cursive;
+            color: var(--gold);
+            font-size: clamp(2.5rem, 12vw, 5rem);
+            margin: 0;
+            text-shadow: 0 0 15px var(--gold-glow), 0 0 30px var(--gold-glow);
+            letter-spacing: 4px;
+        }
+
+        .status-bar {
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            color: #666;
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: -50px auto 50px;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 30px;
+            border-radius: 4px;
+            position: relative;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--gold);
+            box-shadow: 0 0 10px var(--gold);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8), 0 0 10px rgba(212, 175, 55, 0.2);
+        }
+
+        h2 {
+            font-family: 'Black Ops One', cursive;
+            color: var(--gold);
+            font-size: 1.4rem;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        p {
+            color: #aaa;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .btn {
+            display: block;
+            text-align: center;
+            padding: 15px;
+            background: transparent;
+            color: var(--gold);
+            border: 1px solid var(--gold);
+            font-weight: bold;
+            text-decoration: none;
+            font-family: 'Black Ops One';
+            margin-top: 20px;
+            transition: 0.3s;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .btn::after {
+            content: "";
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: var(--gold);
+            transition: 0.3s;
+            z-index: -1;
+        }
+
+        .btn:hover { color: black; }
+        .btn:hover::after { left: 0; }
+
+        .tag {
+            background: #c00;
+            color: white;
+            font-size: 0.7rem;
+            padding: 4px 12px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 10px;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+        }
+
+        /* Hall of Fame Mejorado */
+        .hall-title {
+            font-family: 'Black Ops One', cursive;
+            color: var(--gold);
+            margin: 60px 0 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .hall-title::after {
+            content: "";
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), transparent);
+            flex: 1;
+        }
+
+        .hall-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 20px;
+        }
+
+        .player {
+            background: rgba(15, 15, 15, 0.9);
+            padding: 20px;
+            text-align: center;
+            border: 1px solid var(--border);
+            clip-path: polygon(15% 0, 100% 0, 100% 85%, 85% 100%, 0 100%, 0 15%);
+            transition: 0.3s;
+        }
+
+        .player:hover {
+            border-color: var(--gold);
+            background: rgba(30, 30, 30, 0.9);
+        }
+
+        .player img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 3px solid var(--gold);
+            object-fit: cover;
+            filter: grayscale(100%) contrast(1.2);
+            transition: 0.3s;
+        }
+
+        .player:hover img {
+            filter: grayscale(0%);
+            transform: scale(1.1);
+        }
+
+        footer {
+            margin-top: 100px;
+            padding: 40px;
+            background: #000;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .admin-btn {
+            color: #333;
+            text-decoration: none;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
+
+        .admin-btn:hover { color: var(--gold); }
+
+        /* Animaciones */
+        [data-aos] {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 0.8s all ease;
+        }
+
+        .visible {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
     </style>
 </head>
 <body>
 
-    <header><h1>EASY COMPANY</h1></header>
+    <header>
+        <h1>EASY COMPANY</h1>
+        <div class="status-bar">SISTEMA HQ OPERATIVO // MARZO 2026</div>
+    </header>
 
     <main class="container">
         <div class="grid">
-            <div class="card">
-                <h2 style="font-family:'Black Ops One'; color:var(--gold)">NOTICIAS CODM</h2>
-                <p>Mantente al tanto de las actualizaciones oficiales del despliegue.</p>
-                <a id="n_link" href="#" target="_blank" class="btn">VER OFICIAL</a>
+            <div class="card" data-aos>
+                <div class="tag">INTELIGENCIA</div>
+                <h2>NOTICIAS CODM</h2>
+                <p>Descifrando transmisiones enemigas. Actualizaciones oficiales de Call of Duty Mobile en tiempo real.</p>
+                <a id="n_link" href="#" target="_blank" class="btn">ACCEDER A DATOS</a>
             </div>
 
-            <div class="card">
-                <span id="t_tag" class="tag"></span>
-                <h2 style="font-family:'Black Ops One'; color:var(--gold)" id="t_tit">CARGANDO...</h2>
-                <p id="t_det"></p>
-                <a id="ws_link" href="#" class="btn">INSCRIBIRSE</a>
+            <div class="card" data-aos>
+                <div id="t_tag" class="tag">PENDIENTE</div>
+                <h2 id="t_tit">SISTEMA EN CARGA...</h2>
+                <p id="t_det">Estableciendo conexión con el servidor de torneos...</p>
+                <a id="ws_link" href="#" class="btn">ALISTARSE</a>
             </div>
         </div>
 
-        <div class="card" style="margin-top:20px; text-align:center;">
-            <h2 style="font-family:'Black Ops One'; color:var(--gold)">SÍGUENOS EN TIKTOK</h2>
-            <a id="tk_link" href="#" target="_blank" class="btn" style="background:#ff0050; color:white;">VER VIDEOS</a>
+        <div class="card" style="margin-top:25px; text-align:center;" data-aos>
+            <div class="tag" style="background: #ff0050;">MERCADOTECNIA</div>
+            <h2>CENTRO DE MEDIOS TIKTOK</h2>
+            <p>Mira nuestras mejores extracciones y momentos de gloria en el campo de batalla.</p>
+            <a id="tk_link" href="#" target="_blank" class="btn" style="border-color:#ff0050; color:#ff0050;">DESPLEGAR VIDEOS</a>
         </div>
 
-        <h2 style="font-family:'Black Ops One'; color:var(--gold); margin-top:40px;">HALL DE LA FAMA</h2>
-        <div id="hall" class="hall-grid"></div>
+        <div class="hall-title" data-aos>
+            <h2>HALL DE LA FAMA</h2>
+        </div>
+        <div id="hall" class="hall-grid" data-aos></div>
     </main>
 
+    <footer>
+        <p style="font-size: 0.8rem; color: #444;">&copy; 2026 EASY COMPANY. TODOS LOS DERECHOS RESERVADOS.</p>
+        <a href="admin.html" class="admin-btn">[ SISTEMA ADMINISTRATIVO ]</a>
+    </footer>
+
     <script>
+        // Animación simple de scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        });
+
+        document.querySelectorAll('[data-aos]').forEach(el => observer.observe(el));
+
         async function init() {
             try {
                 const r = await fetch('data.json?v=' + Date.now());
@@ -61,20 +320,21 @@
                 document.getElementById('t_det').innerText = d.torneo.detalles;
                 document.getElementById('t_tag').innerText = d.torneo.costo;
                 document.getElementById('tk_link').href = d.tiktok_url;
-                document.getElementById('ws_link').href = `https://wa.me/${d.whatsapp}?text=Hola!%20Deseo%20inscribirme%20al%20torneo.`;
+                document.getElementById('ws_link').href = `https://wa.me/${d.whatsapp}?text=Comandante!%20Deseo%20inscribirme%20al%20torneo.`;
 
-                document.getElementById('hall').innerHTML = d.hall_fama.map(p => `
+                const hallHTML = d.hall_fama.map(p => `
                     <div class="player">
                         <img src="${p.foto}" onerror="this.src='https://via.placeholder.com/150'">
-                        <div style="color:var(--gold); font-family:'Black Ops One'; font-size:0.8rem; margin-top:10px;">${p.nombre}</div>
+                        <div style="color:var(--gold); font-family:'Black Ops One'; font-size:0.8rem; margin-top:10px; letter-spacing:1px;">${p.nombre.toUpperCase()}</div>
                     </div>
                 `).join('');
-            } catch (e) { console.error("Error cargando sistema operativo."); }
+                
+                document.getElementById('hall').innerHTML = hallHTML;
+            } catch (e) { 
+                console.error("ERROR EN EL SISTEMA HQ.");
+            }
         }
         init();
     </script>
-    <footer style="margin-top: 50px; text-align: center; padding: 20px; border-top: 1px solid #222;">
-    <a href="admin.html" style="color: #333; text-decoration: none; font-size: 0.7rem;">[ ACCESO RESTRINGIDO ]</a>
-    </footer>
 </body>
 </html>
