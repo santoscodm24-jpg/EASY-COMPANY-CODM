@@ -2,79 +2,88 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ADMIN | EASY COMPANY</title>
-    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
+    <title>SISTEMA DE MANDO | ADMIN</title>
     <style>
-        :root { --gold: #d4af37; --bg: #0a0a0a; --card: #151515; --green: #00ff41; }
-        body { background: var(--bg); color: white; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px; }
-        .box { background: var(--card); border: 2px solid var(--gold); padding: 25px; width: 100%; max-width: 600px; box-shadow: 0 0 15px rgba(212,175,55,0.2); border-radius: 8px; }
-        h2 { font-family: 'Black Ops One', cursive; color: var(--gold); text-align: center; text-transform: uppercase; margin-top: 0; }
-        h3 { color: var(--gold); border-bottom: 1px solid #333; padding-bottom: 5px; font-size: 0.9rem; margin-top: 25px; }
-        label { display: block; margin-top: 10px; font-size: 0.8rem; color: #888; font-weight: bold; }
-        input, textarea { width: 100%; padding: 10px; margin-top: 5px; background: #000; border: 1px solid #333; color: var(--green); box-sizing: border-box; border-radius: 4px; }
-        button { width: 100%; padding: 15px; background: var(--gold); color: black; border: none; font-weight: bold; cursor: pointer; margin-top: 20px; font-family: 'Black Ops One'; }
-        #output-section { margin-top: 20px; display: none; width: 100%; }
-        pre { background: #000; color: var(--green); padding: 15px; border: 1px dashed var(--gold); white-space: pre-wrap; font-size: 0.8rem; overflow-x: auto; }
-        #login-overlay { position: fixed; inset: 0; background: var(--bg); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+        :root { --gold: #d4af37; --bg: #0a0a0a; --green: #00ff41; }
+        body { background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        .panel { background: #111; border: 2px solid var(--gold); padding: 25px; width: 100%; max-width: 700px; border-radius: 8px; }
+        h2 { color: var(--gold); text-align: center; text-transform: uppercase; letter-spacing: 2px; }
+        section { border-top: 1px solid #333; margin-top: 20px; padding-top: 15px; }
+        label { display: block; color: var(--gold); font-size: 0.8rem; margin-top: 10px; font-weight: bold; }
+        input, select, textarea { width: 100%; padding: 10px; margin-top: 5px; background: #000; border: 1px solid #444; color: var(--green); box-sizing: border-box; }
+        button { width: 100%; padding: 15px; background: var(--gold); color: black; border: none; font-weight: bold; cursor: pointer; margin-top: 20px; text-transform: uppercase; }
+        #out-box { margin-top: 20px; display: none; }
+        pre { background: #000; color: var(--green); padding: 15px; border: 1px dashed var(--gold); white-space: pre-wrap; font-size: 0.8rem; }
+        #lock { position: fixed; inset: 0; background: var(--bg); display: flex; justify-content: center; align-items: center; z-index: 1000; }
     </style>
 </head>
 <body>
-
-    <div id="login-overlay">
-        <div class="box">
-            <h2>ACCESO DE MANDO</h2>
-            <input type="password" id="pass" placeholder="CLAVE DE ACCESO">
-            <button onclick="check()">ENTRAR AL PANEL</button>
+    <div id="lock">
+        <div class="panel" style="max-width:300px; text-align:center;">
+            <h2>ACCESO</h2>
+            <input type="password" id="pass" placeholder="CLAVE">
+            <button onclick="auth()">ENTRAR</button>
         </div>
     </div>
 
-    <div class="box">
-        <h2>CENTRO DE CONTROL</h2>
+    <div class="panel">
+        <h2>CENTRO DE CONFIGURACIÓN TÁCTICA</h2>
         
-        <h3>1. ESTRENO / NOTICIA</h3>
-        <label>TÍTULO</label><input type="text" id="t" value="NUEVA TEMPORADA">
-        <label>URL IMAGEN</label><input type="text" id="i" value="https://via.placeholder.com/800x400">
-        <label>DESCRIPCIÓN</label><textarea id="d" rows="2">Detalles de la misión...</textarea>
+        <section>
+            <label>LINK NOTICIAS OFICIALES CODM</label>
+            <input type="text" id="n_url" value="https://www.callofduty.com/mobile">
+        </section>
 
-        <h3>2. CONFIGURACIÓN DE SALA</h3>
-        <label>TÍTULO DE SALA</label><input type="text" id="s_t" value="SALA PRIVADA">
-        <label>ID Y CONTRASEÑA</label><input type="text" id="s_i" value="ID: 0000 | PASS: 123">
+        <section>
+            <label>TORNEOS PRIVADOS</label>
+            <input type="text" id="t_tit" placeholder="Nombre del Torneo">
+            <select id="t_costo">
+                <option value="FREE">GRATIS (FREE)</option>
+                <option value="1.5$">1.5$ USD</option>
+            </select>
+            <textarea id="t_det" placeholder="ID, Fecha, Hora..."></textarea>
+        </section>
 
-        <h3>3. HALL DE LA FAMA</h3>
-        <label>NOMBRES (Separados por coma)</label><input type="text" id="h_n" placeholder="Ghost, Price, Soap">
-        <label>FOTOS (URLs separadas por coma)</label><input type="text" id="h_f" placeholder="url1, url2, url3">
+        <section>
+            <label>HALL DE FAMA (Nombres y Fotos separados por comas)</label>
+            <input type="text" id="hf_n" placeholder="Jugador1, Jugador2">
+            <input type="text" id="hf_f" placeholder="URL_Foto1, URL_Foto2">
+        </section>
 
-        <h3>4. CONTACTO</h3>
-        <label>WHATSAPP (Solo números)</label><input type="text" id="w" value="584120000000">
+        <section>
+            <label>REDES Y CONTACTO</label>
+            <input type="text" id="tk" placeholder="URL TikTok">
+            <input type="text" id="ws" placeholder="WhatsApp (Ej: 58412...)">
+        </section>
 
-        <button onclick="gen()">GENERAR DATA.JSON</button>
-        
-        <div id="output-section">
-            <h3 style="text-align:center;">COPIA ESTE CÓDIGO EN TU DATA.JSON</h3>
-            <pre id="out"></pre>
+        <button onclick="generar()">GENERAR DATA.JSON</button>
+
+        <div id="out-box">
+            <h3 style="color:var(--gold)">COPIA ESTE CÓDIGO EN DATA.JSON:</h3>
+            <pre id="output"></pre>
         </div>
     </div>
 
     <script>
-        const KEY = "EASY2026";
-        function check() { 
-            if(document.getElementById('pass').value === KEY) document.getElementById('login-overlay').style.display='none'; 
-            else alert('Clave Incorrecta');
-        }
-        function gen() {
-            const nombres = document.getElementById('h_n').value.split(',').map(n => n.trim());
-            const fotos = document.getElementById('h_f').value.split(',').map(f => f.trim());
-            const hall = nombres.map((n, i) => ({ nombre: n || "OPERADOR", foto: fotos[i] || "" }));
+        function auth() { if(document.getElementById('pass').value === 'EASY2026') document.getElementById('lock').style.display='none'; }
+        function generar() {
+            const nombres = document.getElementById('hf_n').value.split(',');
+            const fotos = document.getElementById('hf_f').value.split(',');
+            const hall = nombres.map((n, i) => ({ nombre: n.trim(), foto: fotos[i] ? fotos[i].trim() : "" }));
 
             const data = {
-                "estrenos": { "titulo": document.getElementById('t').value, "imagen": document.getElementById('i').value, "descripcion": document.getElementById('d').value },
-                "sala": { "titulo": document.getElementById('s_t').value, "info": document.getElementById('s_i').value },
-                "hall_fama": hall,
-                "config": { "whatsapp": document.getElementById('w').value.replace(/\D/g,'') }
+                noticias_url: document.getElementById('n_url').value,
+                torneo: { 
+                    titulo: document.getElementById('t_tit').value, 
+                    costo: document.getElementById('t_costo').value,
+                    detalles: document.getElementById('t_det').value 
+                },
+                hall_fama: hall,
+                tiktok_url: document.getElementById('tk').value,
+                whatsapp: document.getElementById('ws').value.replace(/\D/g,'')
             };
-            document.getElementById('out').textContent = JSON.stringify(data, null, 4);
-            document.getElementById('output-section').style.display = 'block';
+            document.getElementById('output').textContent = JSON.stringify(data, null, 4);
+            document.getElementById('out-box').style.display = 'block';
         }
     </script>
 </body>
