@@ -1,62 +1,41 @@
-/**
- * EASY COMPANY - MÓDULO DE INTELIGENCIA TÁCTICA
- * Este script sincroniza la web con el archivo data.json
- */
+document.addEventListener('DOMContentLoaded', () => cargarSistema());
 
-document.addEventListener('DOMContentLoaded', () => {
-    cargarDatosMision();
-});
-
-async function cargarDatosMision() {
-    // Referencias a los contenedores del HTML
-    const contenedor = document.getElementById('estrenos-container');
-    const btnWhatsapp = document.getElementById('whatsapp-btn');
-
+async function cargarSistema() {
     try {
-        // Agregamos un número aleatorio al final para forzar a GitHub a dar el archivo más nuevo
-        const cacheBuster = new Date().getTime();
-        const response = await fetch(`data.json?v=${cacheBuster}`);
-
-        if (!response.ok) {
-            throw new Error('No se pudo establecer conexión con data.json');
-        }
-
+        const timestamp = new Date().getTime();
+        const response = await fetch(`data.json?v=${timestamp}`);
         const data = await response.json();
 
-        // 1. ACTUALIZAR SECCIÓN DE ESTRENOS
-        if (contenedor) {
-            contenedor.innerHTML = `
-                <div class="card" style="animation: fadeIn 1s ease-out;">
-                    <img src="${data.estrenos.imagen}" alt="Misión CODM" 
-                         onerror="this.src='https://wallpaperaccess.com/full/2105128.jpg'">
-                    <div class="card-content">
-                        <h3 style="color:var(--gold); font-family:'Black Ops One', cursive; margin-top:0;">
-                            ${data.estrenos.titulo}
-                        </h3>
-                        <p style="line-height:1.6; color:#bbb;">
-                            ${data.estrenos.descripcion.replace(/\n/g, '<br>')}
-                        </p>
-                    </div>
+        // 1. CARGAR NOTICIA/ESTRENO
+        document.getElementById('estrenos-container').innerHTML = `
+            <div style="background:var(--card); border-top:3px solid var(--gold); display:flex; flex-wrap:wrap; overflow:hidden; border-radius:5px;">
+                <img src="${data.estrenos.imagen}" style="width:100%; max-width:350px; height:220px; object-fit:cover;">
+                <div style="padding:25px; flex:1;">
+                    <h3 style="color:var(--gold); font-family:'Black Ops One'; margin:0 0 10px;">${data.estrenos.titulo}</h3>
+                    <p style="line-height:1.6; color:#aaa;">${data.estrenos.descripcion}</p>
                 </div>
-            `;
-        }
+            </div>
+        `;
 
-        // 2. ACTUALIZAR BOTÓN DE WHATSAPP
-        if (btnWhatsapp && data.config.whatsapp) {
-            // Limpiamos el número por si acaso quedaron espacios o símbolos
-            const numLimpio = data.config.whatsapp.replace(/\D/g, '');
-            btnWhatsapp.href = `https://wa.me/${numLimpio}?text=Saludos%20EASY%20COMPANY%2C%20solicito%20informaci%C3%B3n%20sobre%20las%20salas.`;
-        }
+        // 2. CARGAR SALA DINÁMICA
+        document.getElementById('sala-container').innerHTML = `
+            <h3 style="font-family:'Black Ops One'; color:var(--gold); margin:0;">${data.sala.titulo}</h3>
+            <div class="info-acceso">${data.sala.info}</div>
+            <p style="font-size:0.8rem; color:#555;">Sigue las reglas del clan. No compartir fuera de la unidad.</p>
+        `;
 
-    } catch (error) {
-        console.error("FALLO TÁCTICO:", error);
-        if (contenedor) {
-            contenedor.innerHTML = `
-                <div style="padding:40px; text-align:center; border:1px solid red; background:rgba(255,0,0,0.1);">
-                    <p style="color:red; font-weight:bold;">⚠️ ERROR DE SINCRONIZACIÓN</p>
-                    <small>Asegúrate de que el archivo 'data.json' esté en la raíz de tu GitHub.</small>
-                </div>
-            `;
-        }
+        // 3. CARGAR HALL DE LA FAMA
+        document.getElementById('hall-container').innerHTML = data.hall_fama.map(p => `
+            <div class="player-card">
+                <img src="${p.foto}" onerror="this.src='https://via.placeholder.com/150'">
+                <div style="color:var(--gold); font-family:'Black Ops One'; font-size:0.8rem; margin-top:10px;">${p.nombre}</div>
+            </div>
+        `).join('');
+
+        // 4. LINK WHATSAPP
+        document.getElementById('whatsapp-btn').href = `https://wa.me/${data.config.whatsapp}`;
+
+    } catch (e) {
+        console.error("Error táctico:", e);
     }
 }
