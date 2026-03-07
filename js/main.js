@@ -1,46 +1,46 @@
-// Función principal para cargar la inteligencia (datos) de la EASY COMPANY
+document.addEventListener('DOMContentLoaded', () => {
+    cargarContenido();
+});
+
 async function cargarContenido() {
+    const contenedor = document.getElementById('estrenos-container');
+    const btnWs = document.getElementById('whatsapp-btn');
+
     try {
-        // Buscamos el archivo de datos en el repositorio
-        const respuesta = await fetch('data.json');
+        // Añadimos un timestamp para evitar que el navegador guarde una versión vieja (Caché)
+        const respuesta = await fetch(`data.json?v=${new Date().getTime()}`);
         
-        if (!respuesta.ok) {
-            throw new Error('No se pudo cargar el archivo data.json');
-        }
+        if (!respuesta.ok) throw new Error('Archivo de datos no encontrado');
 
         const data = await respuesta.json();
 
-        // 1. Actualizar Sección de Estrenos
-        const contenedorEstrenos = document.getElementById('estrenos-container');
-        if (contenedorEstrenos) {
-            contenedorEstrenos.innerHTML = `
-                <div class="card">
-                    <img src="${data.estrenos.imagen}" alt="Operación CODM" onerror="this.src='https://via.placeholder.com/800x400?text=SIN+IMAGEN+TACTICA'">
+        // Renderizado Seguro de Estrenos
+        if (contenedor) {
+            contenedor.innerHTML = `
+                <div class="card" style="animation: fadeIn 0.8s ease-in-out;">
+                    <img src="${data.estrenos.imagen}" alt="CODM" onerror="this.src='https://via.placeholder.com/800x400?text=IMAGEN+NO+DISPONIBLE'">
                     <div class="card-content">
-                        <h3 style="color:var(--gold); margin-top:0;">${data.estrenos.titulo}</h3>
+                        <h3 style="color:var(--gold); font-family:'Black Ops One';">${data.estrenos.titulo}</h3>
                         <p>${data.estrenos.descripcion}</p>
                     </div>
                 </div>
             `;
         }
 
-        // 2. Actualizar Sección de Salas / WhatsApp
-        const btnWhatsapp = document.getElementById('whatsapp-btn');
-        if (btnWhatsapp && data.config.whatsapp) {
-            // Limpiamos el número por si acaso y armamos el link
-            const numeroLimpio = data.config.whatsapp.replace(/\D/g, '');
-            btnWhatsapp.href = `https://wa.me/${numeroLimpio}?text=Hola%20EASY%20COMPANY,%20solicito%20acceso%20a%20la%20sala%20personalizada.`;
+        // Configuración del Botón de WhatsApp
+        if (btnWs && data.config.whatsapp) {
+            const num = data.config.whatsapp.replace(/\D/g, '');
+            btnWs.href = `https://wa.me/${num}?text=Saludos%20EASY%20COMPANY%2C%20solicito%20información.`;
         }
 
     } catch (error) {
-        console.error("ERROR TÁCTICO:", error);
-        // Mensaje de error visual para el usuario si falla la carga
-        const contenedor = document.getElementById('estrenos-container');
+        console.error("Error de carga:", error);
         if (contenedor) {
-            contenedor.innerHTML = "<p style='color:red;'>⚠️ Error al cargar datos. Verifique que data.json existe.</p>";
+            contenedor.innerHTML = `
+                <div style="border:1px solid red; padding:20px; text-align:center; color:red;">
+                    <p>⚠️ ERROR DE CONEXIÓN CON EL CUARTEL GENERAL</p>
+                    <small>Verifica que el archivo data.json esté en el repositorio.</small>
+                </div>`;
         }
     }
 }
-
-// Ejecutar la carga cuando el documento esté listo
-document.addEventListener('DOMContentLoaded', cargarContenido);
