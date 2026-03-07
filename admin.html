@@ -6,61 +6,56 @@
     <title>ADMIN | EASY COMPANY</title>
     <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --gold: #d4af37; --dark-bg: #050505; --card-bg: #111; --green: #00ff41; --danger: #ff4444; }
-        body { margin: 0; background-color: var(--dark-bg); color: white; font-family: 'Roboto', sans-serif; display: flex; flex-direction: column; align-items: center; min-height: 100vh; background-image: radial-gradient(circle, #1a1a1a 1px, transparent 1px); background-size: 30px 30px; }
+        :root { --gold: #d4af37; --dark-bg: #050505; --card-bg: #111; --green: #00ff41; }
+        body { margin: 0; background-color: var(--dark-bg); color: white; font-family: 'Roboto', sans-serif; display: flex; flex-direction: column; align-items: center; padding-bottom: 50px; }
         #login-overlay { position: fixed; inset: 0; background: var(--dark-bg); display: flex; justify-content: center; align-items: center; z-index: 1000; }
-        .login-box { background: var(--card-bg); border: 2px solid var(--gold); padding: 40px; text-align: center; width: 90%; max-width: 400px; box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); }
-        .admin-panel { background: var(--card-bg); border: 2px solid var(--gold); padding: 30px; width: 90%; max-width: 650px; margin: 40px 0; border-radius: 5px; }
-        h2 { font-family: 'Black Ops One', cursive; color: var(--gold); text-align: center; margin-top: 0; text-transform: uppercase; }
-        h3 { color: var(--gold); border-bottom: 1px solid #333; padding-bottom: 5px; margin-top: 25px; font-size: 1rem; }
-        label { display: block; margin-top: 10px; color: #888; font-weight: bold; font-size: 0.75rem; }
-        input, textarea { width: 100%; padding: 10px; margin-top: 5px; background: #000; border: 1px solid #333; color: var(--green); border-radius: 3px; font-family: monospace; box-sizing: border-box; }
-        button { width: 100%; padding: 15px; background: var(--gold); color: black; border: none; font-weight: bold; margin-top: 20px; cursor: pointer; text-transform: uppercase; font-family: 'Black Ops One'; transition: 0.3s; }
-        button:hover { background: white; }
-        #output-section { margin-top: 30px; display: none; padding-top: 20px; border-top: 2px solid var(--gold); }
+        .login-box { background: var(--card-bg); border: 2px solid var(--gold); padding: 40px; text-align: center; width: 90%; max-width: 400px; }
+        .admin-panel { background: var(--card-bg); border: 2px solid var(--gold); padding: 30px; width: 90%; max-width: 650px; margin-top: 40px; }
+        h2 { font-family: 'Black Ops One', cursive; color: var(--gold); text-align: center; margin: 0 0 20px; }
+        h3 { color: var(--gold); border-bottom: 1px solid #333; padding-bottom: 5px; margin-top: 25px; font-size: 0.9rem; text-transform: uppercase; }
+        label { display: block; margin-top: 10px; color: #888; font-size: 0.75rem; font-weight: bold; }
+        input, textarea { width: 100%; padding: 10px; margin-top: 5px; background: #000; border: 1px solid #333; color: var(--green); box-sizing: border-box; font-family: monospace; }
+        button { width: 100%; padding: 15px; background: var(--gold); color: black; border: none; font-weight: bold; margin-top: 20px; cursor: pointer; font-family: 'Black Ops One'; }
+        #output-section { margin-top: 30px; display: none; width: 100%; }
         pre { background: #000; color: var(--green); padding: 15px; border: 1px dashed var(--gold); white-space: pre-wrap; font-size: 0.8rem; overflow-x: auto; }
-        .back-link { color: var(--gold); text-decoration: none; font-weight: bold; margin-top: 20px; font-size: 0.9rem; border: 1px solid var(--gold); padding: 10px 20px; }
     </style>
 </head>
 <body>
 
     <div id="login-overlay">
         <div class="login-box">
-            <h2>ACCESO RESTRINGIDO</h2>
-            <input type="password" id="pass" placeholder="CÓDIGO DE MANDO">
-            <button onclick="check()">ENTRAR</button>
+            <h2>ACCESO MILITAR</h2>
+            <input type="password" id="pass" placeholder="CLAVE DE MANDO">
+            <button onclick="check()">AUTENTICAR</button>
         </div>
     </div>
-
-    <a href="index.html" class="back-link">← VOLVER AL INICIO</a>
 
     <div class="admin-panel">
         <h2>CENTRO DE CONTROL</h2>
         
-        <h3>1. ÚLTIMO ESTRENO / NOTICIA</h3>
-        <label>TÍTULO</label>
-        <input type="text" id="t" placeholder="Ej: OPERACIÓN VICTORIA">
-        <label>URL IMAGEN</label>
-        <input type="text" id="i" placeholder="https://...">
-        <label>DESCRIPCIÓN</label>
-        <textarea id="d" rows="2"></textarea>
+        <h3>1. MISIÓN PRINCIPAL</h3>
+        <label>TÍTULO</label><input type="text" id="t">
+        <label>URL IMAGEN</label><input type="text" id="i">
+        <label>DETALLES</label><textarea id="d" rows="2"></textarea>
 
-        <h3>2. HALL DE LA FAMA (TOP JUGADORES)</h3>
-        <p style="font-size: 0.7rem; color: #666;">Ingresa los nombres y URLs de fotos separados por comas.</p>
-        <label>NOMBRES (Separados por coma)</label>
-        <input type="text" id="nombres_hf" placeholder="Player1, Player2, Player3">
-        <label>URL FOTOS (Separadas por coma)</label>
-        <input type="text" id="fotos_hf" placeholder="url1, url2, url3">
+        <h3>2. CONFIGURACIÓN DE SALAS</h3>
+        <label>TÍTULO DE LA SALA (Ej: TORNEO RELÁMPAGO)</label>
+        <input type="text" id="sala_t" placeholder="SALA PRIVADA">
+        <label>INFO DE ACCESO (Ej: ID: 12345 | PASS: 999)</label>
+        <input type="text" id="sala_info" placeholder="ID: --- | PASS: ---">
 
-        <h3>3. CONTACTO</h3>
-        <label>WHATSAPP (NÚMEROS)</label>
-        <input type="text" id="w" placeholder="584120000000">
+        <h3>3. HALL DE LA FAMA (NOMBRES, FOTOS SEPARADOS POR COMA)</h3>
+        <label>JUGADORES</label><input type="text" id="nombres_hf">
+        <label>FOTOS (URLs)</label><input type="text" id="fotos_hf">
+
+        <h3>4. WHATSAPP</h3>
+        <label>TELÉFONO (Solo números)</label><input type="text" id="w">
         
-        <button onclick="gen()">GENERAR DATA.JSON</button>
+        <button onclick="gen()">GENERAR PAQUETE DE DATOS</button>
         
         <div id="output-section">
-            <h3 style="text-align:center;">CÓDIGO PARA GITHUB:</h3>
-            <button onclick="copy()" style="background:#222; color:var(--gold); border: 1px solid var(--gold);">COPIAR CÓDIGO</button>
+            <h3 style="text-align:center;">CÓDIGO PARA DATA.JSON:</h3>
+            <button onclick="copy()">COPIAR TODO EL CÓDIGO</button>
             <pre id="out"></pre>
         </div>
     </div>
@@ -70,34 +65,29 @@
         function check() { if(document.getElementById('pass').value === KEY) document.getElementById('login-overlay').style.display='none'; }
         
         function gen() {
-            // Procesar Hall de la Fama
             const nombres = document.getElementById('nombres_hf').value.split(',').map(n => n.trim());
             const fotos = document.getElementById('fotos_hf').value.split(',').map(f => f.trim());
             
-            const hall_fama = nombres.map((nom, index) => ({
-                "nombre": nom || "OPERADOR",
-                "foto": fotos[index] || "https://via.placeholder.com/150"
-            }));
-
             const data = {
                 "estrenos": {
-                    "titulo": document.getElementById('t').value.toUpperCase() || "SIN TÍTULO",
+                    "titulo": document.getElementById('t').value.toUpperCase() || "SIN MISIÓN",
                     "imagen": document.getElementById('i').value || "",
                     "descripcion": document.getElementById('d').value || ""
                 },
-                "hall_fama": hall_fama,
-                "config": {
-                    "whatsapp": document.getElementById('w').value.replace(/\D/g,'') || ""
-                }
+                "sala": {
+                    "titulo": document.getElementById('sala_t').value || "SALA CERRADA",
+                    "info": document.getElementById('sala_info').value || "Contacta al admin para acceso"
+                },
+                "hall_fama": nombres.map((nom, index) => ({
+                    "nombre": nom || "RECLUTA",
+                    "foto": fotos[index] || "https://via.placeholder.com/150"
+                })),
+                "config": { "whatsapp": document.getElementById('w').value.replace(/\D/g,'') }
             };
             document.getElementById('out').textContent = JSON.stringify(data, null, 4);
             document.getElementById('output-section').style.display = 'block';
         }
-
-        function copy() {
-            navigator.clipboard.writeText(document.getElementById('out').textContent);
-            alert('¡Copiado!');
-        }
+        function copy() { navigator.clipboard.writeText(document.getElementById('out').textContent); alert('¡Copiado!'); }
     </script>
 </body>
 </html>
