@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN | EASY COMPANY</title>
+    <style>
+        :root { --gold: #d4af37; --bg: #0a0a0a; --card: #151515; --green: #00ff41; }
+        body { background: var(--bg); color: white; font-family: 'Courier New', monospace; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        .login-box, .admin-panel { background: var(--card); border: 2px solid var(--gold); padding: 30px; width: 100%; max-width: 600px; box-shadow: 0 0 15px rgba(212,175,55,0.2); }
+        h2 { color: var(--gold); text-align: center; text-transform: uppercase; margin-top: 0; }
+        input, textarea { width: 100%; padding: 12px; margin: 10px 0; background: #000; border: 1px solid #333; color: var(--green); box-sizing: border-box; }
+        button { width: 100%; padding: 15px; background: var(--gold); color: black; border: none; font-weight: bold; cursor: pointer; text-transform: uppercase; }
+        button:hover { background: white; }
+        #output-section { margin-top: 20px; display: none; width: 100%; }
+        pre { background: #000; color: var(--green); padding: 15px; border: 1px dashed var(--gold); white-space: pre-wrap; font-size: 0.85rem; }
+        #login-overlay { position: fixed; inset: 0; background: var(--bg); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+    </style>
+</head>
+<body>
+
+    <div id="login-overlay">
+        <div class="login-box">
+            <h2>ACCESO RESTRINGIDO</h2>
+            <input type="password" id="pass" placeholder="CLAVE DE MANDO">
+            <button onclick="check()">ENTRAR</button>
+        </div>
+    </div>
+
+    <div class="admin-panel">
+        <h2>CENTRO DE CONTROL</h2>
+        <label>Título del Estreno</label>
+        <input type="text" id="t" placeholder="Ej: NUEVA TEMPORADA">
+        <label>URL Imagen</label>
+        <input type="text" id="i" placeholder="https://link-imagen.jpg">
+        <label>Descripción</label>
+        <textarea id="d" rows="3" placeholder="Detalles de la misión..."></textarea>
+        <label>WhatsApp (Solo números)</label>
+        <input type="text" id="w" placeholder="584120000000">
+        <button onclick="gen()">GENERAR DATA.JSON</button>
+        
+        <div id="output-section">
+            <h3 style="color:var(--gold)">CÓDIGO PARA GITHUB:</h3>
+            <button onclick="copy()" style="background:#333; color:var(--gold); padding:5px; margin-bottom:5px;">COPIAR CÓDIGO</button>
+            <pre id="out"></pre>
+        </div>
+    </div>
+
+    <script>
+        const KEY = "EASY2026";
+        function check() { if(document.getElementById('pass').value === KEY) document.getElementById('login-overlay').style.display='none'; else alert('Error'); }
+        function gen() {
+            const data = { 
+                "estrenos": { "titulo": document.getElementById('t').value.toUpperCase(), "imagen": document.getElementById('i').value, "descripcion": document.getElementById('d').value },
+                "config": { "whatsapp": document.getElementById('w').value }
+            };
+            document.getElementById('out').textContent = JSON.stringify(data, null, 4);
+            document.getElementById('output-section').style.display = 'block';
+        }
+        function copy() { navigator.clipboard.writeText(document.getElementById('out').textContent); alert('Copiado'); }
+    </script>
+</body>
+</html>
