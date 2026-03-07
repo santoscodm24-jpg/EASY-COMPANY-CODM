@@ -1,15 +1,14 @@
 {
-    "estrenos": {
-        "titulo": "EASY COMPANY",
-        "imagen": "https://wallpaperaccess.com/full/2105128.jpg",
-        "descripcion": "Bienvenido al cuartel general."
+    "noticias_url": "https://www.callofduty.com/mobile",
+    "torneo": {
+        "titulo": "TORNEO RELÁMPAGO",
+        "costo": "1.5$",
+        "detalles": "Inscripciones abiertas. Cupos limitados."
     },
-    "sala": {
-        "titulo": "SIN SALAS ACTIVAS",
-        "info": "Consulta con el líder para el próximo despliegue."
-    },
-    "hall_fama": [],
-    "config": {
-        "whatsapp": "584120000000"
-    }
+    "hall_fama": [
+        {"nombre": "Ghost", "foto": "https://via.placeholder.com/150"},
+        {"nombre": "Price", "foto": "https://via.placeholder.com/150"}
+    ],
+    "tiktok_url": "https://www.tiktok.com/@tuusuario",
+    "whatsapp": "584120000000"
 }
