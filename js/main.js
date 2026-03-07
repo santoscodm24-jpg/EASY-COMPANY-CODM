@@ -1,46 +1,62 @@
+/**
+ * EASY COMPANY - MÓDULO DE INTELIGENCIA TÁCTICA
+ * Este script sincroniza la web con el archivo data.json
+ */
+
 document.addEventListener('DOMContentLoaded', () => {
-    cargarContenido();
+    cargarDatosMision();
 });
 
-async function cargarContenido() {
+async function cargarDatosMision() {
+    // Referencias a los contenedores del HTML
     const contenedor = document.getElementById('estrenos-container');
-    const btnWs = document.getElementById('whatsapp-btn');
+    const btnWhatsapp = document.getElementById('whatsapp-btn');
 
     try {
-        // Añadimos un timestamp para evitar que el navegador guarde una versión vieja (Caché)
-        const respuesta = await fetch(`data.json?v=${new Date().getTime()}`);
-        
-        if (!respuesta.ok) throw new Error('Archivo de datos no encontrado');
+        // Agregamos un número aleatorio al final para forzar a GitHub a dar el archivo más nuevo
+        const cacheBuster = new Date().getTime();
+        const response = await fetch(`data.json?v=${cacheBuster}`);
 
-        const data = await respuesta.json();
+        if (!response.ok) {
+            throw new Error('No se pudo establecer conexión con data.json');
+        }
 
-        // Renderizado Seguro de Estrenos
+        const data = await response.json();
+
+        // 1. ACTUALIZAR SECCIÓN DE ESTRENOS
         if (contenedor) {
             contenedor.innerHTML = `
-                <div class="card" style="animation: fadeIn 0.8s ease-in-out;">
-                    <img src="${data.estrenos.imagen}" alt="CODM" onerror="this.src='https://via.placeholder.com/800x400?text=IMAGEN+NO+DISPONIBLE'">
+                <div class="card" style="animation: fadeIn 1s ease-out;">
+                    <img src="${data.estrenos.imagen}" alt="Misión CODM" 
+                         onerror="this.src='https://wallpaperaccess.com/full/2105128.jpg'">
                     <div class="card-content">
-                        <h3 style="color:var(--gold); font-family:'Black Ops One';">${data.estrenos.titulo}</h3>
-                        <p>${data.estrenos.descripcion}</p>
+                        <h3 style="color:var(--gold); font-family:'Black Ops One', cursive; margin-top:0;">
+                            ${data.estrenos.titulo}
+                        </h3>
+                        <p style="line-height:1.6; color:#bbb;">
+                            ${data.estrenos.descripcion.replace(/\n/g, '<br>')}
+                        </p>
                     </div>
                 </div>
             `;
         }
 
-        // Configuración del Botón de WhatsApp
-        if (btnWs && data.config.whatsapp) {
-            const num = data.config.whatsapp.replace(/\D/g, '');
-            btnWs.href = `https://wa.me/${num}?text=Saludos%20EASY%20COMPANY%2C%20solicito%20información.`;
+        // 2. ACTUALIZAR BOTÓN DE WHATSAPP
+        if (btnWhatsapp && data.config.whatsapp) {
+            // Limpiamos el número por si acaso quedaron espacios o símbolos
+            const numLimpio = data.config.whatsapp.replace(/\D/g, '');
+            btnWhatsapp.href = `https://wa.me/${numLimpio}?text=Saludos%20EASY%20COMPANY%2C%20solicito%20informaci%C3%B3n%20sobre%20las%20salas.`;
         }
 
     } catch (error) {
-        console.error("Error de carga:", error);
+        console.error("FALLO TÁCTICO:", error);
         if (contenedor) {
             contenedor.innerHTML = `
-                <div style="border:1px solid red; padding:20px; text-align:center; color:red;">
-                    <p>⚠️ ERROR DE CONEXIÓN CON EL CUARTEL GENERAL</p>
-                    <small>Verifica que el archivo data.json esté en el repositorio.</small>
-                </div>`;
+                <div style="padding:40px; text-align:center; border:1px solid red; background:rgba(255,0,0,0.1);">
+                    <p style="color:red; font-weight:bold;">⚠️ ERROR DE SINCRONIZACIÓN</p>
+                    <small>Asegúrate de que el archivo 'data.json' esté en la raíz de tu GitHub.</small>
+                </div>
+            `;
         }
     }
 }
