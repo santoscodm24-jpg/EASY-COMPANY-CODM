@@ -4,61 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EASY COMPANY | HQ</title>
-    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
     <style>
-        :root { --gold: #d4af37; --dark: #050505; --card: #111; --text: #eee; }
-        body { margin: 0; background: var(--dark); color: var(--text); font-family: 'Roboto', sans-serif; background-image: radial-gradient(circle, #1a1a1a 1px, transparent 1px); background-size: 30px 30px; }
-        header { height: 40vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(rgba(0,0,0,0.8), var(--dark)), url('https://wallpaperaccess.com/full/2105128.jpg') center/cover; border-bottom: 3px solid var(--gold); }
-        h1 { font-family: 'Black Ops One', cursive; color: var(--gold); font-size: clamp(2.5rem, 8vw, 4rem); margin: 0; }
-        nav { background: #000; padding: 15px; position: sticky; top: 0; border-bottom: 2px solid var(--gold); display: flex; justify-content: center; gap: 20px; z-index: 100; }
-        nav a { color: white; text-decoration: none; font-size: 0.8rem; font-weight: bold; letter-spacing: 1px; }
-        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
-        .section-title { font-family: 'Black Ops One', cursive; color: var(--gold); border-left: 5px solid var(--gold); padding-left: 15px; margin-bottom: 30px; }
-        
-        /* Estilos Dinámicos */
-        .card-sala { background: #0a0a0a; border: 1px dashed var(--gold); padding: 40px; text-align: center; }
-        .info-acceso { font-family: monospace; background: #000; color: #00ff41; padding: 10px; display: inline-block; margin: 15px 0; border: 1px solid #222; }
-        .grid-hall { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 20px; }
-        .player-card { background: #0e0e0e; border: 1px solid #222; padding: 15px; text-align: center; border-radius: 4px; }
-        .player-card img { width: 80px; height: 80px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; }
-        .btn-ws { display: inline-block; background: var(--gold); color: black; padding: 15px 30px; font-weight: bold; text-decoration: none; font-family: 'Black Ops One'; margin-top: 20px; }
+        :root { --gold: #d4af37; --bg: #050505; --card: #111; }
+        body { margin: 0; background: var(--bg); color: white; font-family: sans-serif; }
+        header { height: 35vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(rgba(0,0,0,0.7), var(--bg)), url('https://wallpaperaccess.com/full/2105128.jpg') center/cover; border-bottom: 3px solid var(--gold); }
+        h1 { font-family: 'Black Ops One', cursive; color: var(--gold); font-size: 3rem; margin: 0; }
+        .container { max-width: 900px; margin: 30px auto; padding: 0 20px; }
+        .section { background: var(--card); border: 1px solid #222; border-radius: 8px; padding: 20px; margin-bottom: 30px; border-top: 3px solid var(--gold); }
+        .hall-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px; }
+        .player { text-align: center; background: #000; padding: 10px; border-radius: 5px; border: 1px solid #333; }
+        .player img { width: 70px; height: 70px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; }
+        .btn-ws { display: block; background: var(--gold); color: black; padding: 15px; text-align: center; text-decoration: none; font-weight: bold; font-family: 'Black Ops One'; border-radius: 5px; }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>EASY COMPANY</h1>
-        <p style="color: #666; letter-spacing: 5px;">CUARTEL GENERAL</p>
-    </header>
-
-    <nav>
-        <a href="#estrenos">NOTICIAS</a>
-        <a href="#sala-seccion">SALA ACTUAL</a>
-        <a href="#hall-fama">LEYENDAS</a>
-    </nav>
+    <header><h1>EASY COMPANY</h1></header>
 
     <main class="container">
-        <section id="estrenos">
-            <h2 class="section-title">ÚLTIMA MISIÓN</h2>
-            <div id="estrenos-container"></div>
-        </section>
-
-        <section id="sala-seccion" style="margin-top: 60px;">
-            <h2 class="section-title">SISTEMA DE SALAS</h2>
-            <div id="sala-container" class="card-sala">
-                </div>
-        </section>
-
-        <section id="hall-fama" style="margin-top: 60px;">
-            <h2 class="section-title">HALL DE LA FAMA</h2>
-            <div id="hall-container" class="grid-hall"></div>
-        </section>
-
-        <div style="text-align: center; margin-top: 60px;">
-            <a href="#" id="whatsapp-btn" class="btn-ws">HABLAR CON EL MANDO</a>
-        </div>
+        <div id="noticia" class="section"></div>
+        <div id="sala" class="section" style="text-align:center; border-style: dashed;"></div>
+        <h2 style="font-family:'Black Ops One'; color:var(--gold);">HALL DE LA FAMA</h2>
+        <div id="hall" class="hall-grid"></div>
+        <br>
+        <a id="ws" href="#" class="btn-ws">CONTACTAR AL CLAN</a>
     </main>
 
-    <script src="main.js"></script>
+    <script>
+        async function load() {
+            const r = await fetch('data.json?v=' + Date.now());
+            const d = await r.json();
+            
+            document.getElementById('noticia').innerHTML = `<h3>${d.estrenos.titulo}</h3><p>${d.estrenos.descripcion}</p>`;
+            document.getElementById('sala').innerHTML = `<h3 style="color:var(--gold)">${d.sala.titulo}</h3><p>${d.sala.info}</p>`;
+            document.getElementById('hall').innerHTML = d.hall_fama.map(p => `<div class="player"><img src="${p.foto}"><div style="font-size:0.8rem; margin-top:5px; color:var(--gold)">${p.nombre}</div></div>`).join('');
+            document.getElementById('ws').href = "https://wa.me/" + d.config.whatsapp;
+        }
+        load();
+    </script>
 </body>
 </html>
