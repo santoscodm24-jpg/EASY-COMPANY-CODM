@@ -3,37 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EASY COMPANY | CODM Hub</title>
+    <title>EASY COMPANY | Centro de Operaciones</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header>
-        <h1>EASY COMPANY</h1>
-        <nav>
-            <a href="#estrenos">Estrenos</a>
-            <a href="#salas">Salas Personalizadas</a>
-            <a href="admin.html" class="admin-link">⚙️</a>
+    <header class="hero-section">
+        <div class="header-content">
+            <h1 class="glitch">EASY COMPANY</h1>
+            <p class="subtitle">UNIDAD DE OPERACIONES ESPECIALES - CODM</p>
+        </div>
+        <nav class="tactical-nav">
+            <a href="#estrenos">ESTRENOS</a>
+            <a href="#salas">SALAS PRIVADAS</a>
+            <a href="admin.html" class="admin-link" title="Panel de Mando">⚙️ ADMIN</a>
         </nav>
     </header>
 
-    <main>
-        <section id="estrenos">
-            <h2>Próximos Estrenos</h2>
-            <div id="contenedor-estrenos" class="grid">
+    <main class="container">
+        <section id="estrenos" class="section-box">
+            <h2 class="section-title">DESPLIEGUE DE CONTENIDO</h2>
+            
+            <div id="estrenos-container" class="grid-estrenos">
+                <div class="loading-data" style="text-align: center; padding: 20px; color: var(--gold);">
+                    <p>Sincronizando inteligencia táctica... 📡</p>
                 </div>
+            </div>
         </section>
 
-        <section id="salas">
-            <h2>Salas Personalizadas</h2>
+        <hr class="separator">
+
+        <section id="salas" class="section-box">
+            <h2 class="section-title">SISTEMA DE RECLUTAMIENTO</h2>
             <div class="card-sala">
-                <p>Únete a nuestra próxima sala privada:</p>
-                <a href="https://wa.me/TuNumeroAqui" class="btn-whatsapp">Contactar por WhatsApp</a>
+                <p>Únete a nuestra próxima sala privada. Coordina tu despliegue directamente con el alto mando.</p>
+                
+                <a href="#" id="whatsapp-btn" class="btn-ws" target="_blank">CONTACTAR AL CUARTEL VÍA WHATSAPP</a>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2026 EASY COMPANY - Operaciones Especiales</p>
+        <div class="footer-content">
+            <p>&copy; 2026 EASY COMPANY - Sin retroceder, sin rendirse.</p>
+        </div>
     </footer>
 
     <script src="js/main.js"></script>
