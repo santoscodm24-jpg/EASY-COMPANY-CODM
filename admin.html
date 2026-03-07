@@ -4,101 +4,158 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ADMIN | EASY COMPANY</title>
-    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --gold: #d4af37; --bg: #0a0a0a; --card: #151515; --green: #00ff41; --danger: #ff4444; }
-        body { background: var(--bg); color: white; font-family: 'Courier New', monospace; display: flex; flex-direction: column; align-items: center; padding: 20px; margin: 0; min-height: 100vh;}
-        .login-box, .admin-panel { background: var(--card); border: 2px solid var(--gold); padding: 30px; width: 100%; max-width: 600px; box-shadow: 0 0 20px rgba(212,175,55,0.15); border-radius: 5px; margin-top: 10px;}
-        h2 { font-family: 'Black Ops One', cursive; color: var(--gold); text-align: center; font-size: 2.2rem; margin-top: 0; letter-spacing: 2px;}
-        label { font-weight: bold; color: #aaa; margin-top: 10px; display: block; text-transform: uppercase; font-size: 0.9rem;}
-        input, textarea { width: 100%; padding: 12px; margin: 8px 0 15px; background: #050505; border: 1px solid #333; color: var(--green); box-sizing: border-box; font-family: monospace; font-size: 1rem; transition: 0.3s; }
-        input:focus, textarea:focus { border-color: var(--gold); outline: none; box-shadow: 0 0 5px rgba(212,175,55,0.5); }
-        button { width: 100%; padding: 15px; background: var(--gold); color: black; border: none; font-weight: bold; font-size: 1.1rem; cursor: pointer; text-transform: uppercase; transition: 0.2s; border-radius: 3px; letter-spacing: 1px;}
-        button:hover { background: white; transform: translateY(-2px); }
-        #output-section { margin-top: 20px; display: none; width: 100%; animation: fadeIn 0.5s; }
-        pre { background: #000; color: var(--green); padding: 15px; border: 1px dashed var(--gold); white-space: pre-wrap; font-size: 0.85rem; overflow-x: auto; }
-        #login-overlay { position: fixed; inset: 0; background: rgba(10, 10, 10, 0.95); display: flex; justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(5px); }
-        .back-link { color: var(--gold); text-decoration: none; margin-bottom: 10px; margin-top: 20px; display: inline-block; font-weight: bold; border: 1px solid var(--gold); padding: 8px 15px; border-radius: 3px; transition: 0.3s;}
-        .back-link:hover { background: var(--gold); color: black; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        :root { 
+            --gold: #d4af37; 
+            --dark-bg: #050505; 
+            --card-bg: #111; 
+            --green: #00ff41; 
+            --danger: #ff4444; 
+        }
+        
+        body { 
+            margin: 0; 
+            background-color: var(--dark-bg); 
+            color: white; 
+            font-family: 'Roboto', sans-serif; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            min-height: 100vh;
+            background-image: radial-gradient(circle, #1a1a1a 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        /* Bloqueo de Seguridad */
+        #login-overlay { 
+            position: fixed; inset: 0; background: var(--dark-bg); 
+            display: flex; justify-content: center; align-items: center; 
+            z-index: 1000; 
+        }
+        
+        .login-box { 
+            background: var(--card-bg); border: 2px solid var(--gold); 
+            padding: 40px; text-align: center; width: 90%; max-width: 400px;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+        }
+
+        /* Panel Principal */
+        .admin-panel { 
+            background: var(--card-bg); border: 2px solid var(--gold); 
+            padding: 30px; width: 90%; max-width: 600px; 
+            margin: 40px 0; border-radius: 5px;
+        }
+
+        h2 { font-family: 'Black Ops One', cursive; color: var(--gold); text-align: center; margin-top: 0; }
+        
+        label { display: block; margin-top: 15px; color: var(--gold); font-weight: bold; font-size: 0.8rem; }
+        
+        input, textarea { 
+            width: 100%; padding: 12px; margin-top: 5px; 
+            background: #000; border: 1px solid #333; 
+            color: var(--green); border-radius: 3px; font-family: monospace;
+            box-sizing: border-box;
+        }
+
+        button { 
+            width: 100%; padding: 15px; background: var(--gold); 
+            color: black; border: none; font-weight: bold; 
+            margin-top: 20px; cursor: pointer; text-transform: uppercase; 
+            font-family: 'Black Ops One'; transition: 0.3s;
+        }
+
+        button:hover { background: white; transform: scale(1.02); }
+
+        #output-section { 
+            margin-top: 30px; display: none; padding-top: 20px; 
+            border-top: 1px solid #333; 
+        }
+
+        pre { 
+            background: #000; color: var(--green); padding: 15px; 
+            border: 1px dashed var(--gold); white-space: pre-wrap; 
+            font-size: 0.8rem; overflow-x: auto;
+        }
+
+        .back-link { 
+            color: var(--gold); text-decoration: none; font-weight: bold; 
+            margin-top: 20px; font-size: 0.9rem; border: 1px solid var(--gold);
+            padding: 10px 20px;
+        }
     </style>
 </head>
 <body>
 
     <div id="login-overlay">
         <div class="login-box">
-            <h2>NIVEL DE ACCESO 4</h2>
-            <input type="password" id="pass" placeholder="INGRESE CÓDIGO DE MANDO (EASY2026)">
-            <button onclick="check()">AUTENTICAR</button>
-            <p id="error-msg" style="color: var(--danger); text-align: center; display: none; margin-top: 15px; font-weight: bold;">ACCESO DENEGADO</p>
+            <h2 style="font-size: 1.5rem;">ACCESO RESTRINGIDO</h2>
+            <input type="password" id="pass" placeholder="CÓDIGO DE MANDO">
+            <button onclick="check()">ENTRAR</button>
+            <p id="err" style="color:var(--danger); display:none; margin-top:10px;">CÓDIGO INCORRECTO</p>
         </div>
     </div>
 
-    <a href="index.html" class="back-link">← VOLVER A LA BASE</a>
+    <a href="index.html" class="back-link">← VOLVER AL INICIO</a>
 
     <div class="admin-panel">
         <h2>CENTRO DE CONTROL</h2>
         
-        <label>TÍTULO DE LA MISIÓN / ESTRENO</label>
-        <input type="text" id="t" placeholder="Ej: OPERACIÓN VICTORIA">
+        <label>TÍTULO DEL COMUNICADO</label>
+        <input type="text" id="t" placeholder="Ej: OPERACIÓN GHOST">
         
-        <label>URL DE LA IMAGEN TÁCTICA</label>
-        <input type="text" id="i" placeholder="https://link-imagen.jpg">
+        <label>URL DE LA IMAGEN (POSTER)</label>
+        <input type="text" id="i" placeholder="https://link-de-imagen.jpg">
         
-        <label>DESCRIPCIÓN DE INTELIGENCIA</label>
-        <textarea id="d" rows="3" placeholder="Detalles de la operación..."></textarea>
+        <label>DESCRIPCIÓN TÁCTICA</label>
+        <textarea id="d" rows="4" placeholder="Escribe los detalles de la misión..."></textarea>
         
-        <label>NÚMERO DE WHATSAPP DEL CUARTEL</label>
+        <label>WHATSAPP (NÚMEROS)</label>
         <input type="text" id="w" placeholder="584120000000">
         
-        <button onclick="gen()">GENERAR DATOS DE SISTEMA</button>
+        <button onclick="gen()">GENERAR DATA.JSON</button>
         
         <div id="output-section">
-            <h3 style="color:var(--gold); font-family: 'Black Ops One', cursive; font-size: 1.5rem; text-align: center;">CÓDIGO LISTO:</h3>
-            <button onclick="copy()" style="background:#222; color:var(--gold); padding:10px; margin-bottom:10px; font-size: 0.9rem; border: 1px solid var(--gold);">📋 COPIAR AL PORTAPAPELES</button>
+            <h3 style="color:var(--gold); text-align:center;">CÓDIGO GENERADO:</h3>
+            <button onclick="copy()" style="background:#222; color:var(--gold); border: 1px solid var(--gold);">COPIAR CÓDIGO</button>
             <pre id="out"></pre>
         </div>
     </div>
 
     <script>
         const KEY = "EASY2026";
-        
-        function check() { 
-            if(document.getElementById('pass').value === KEY) {
-                document.getElementById('login-overlay').style.display='none'; 
-            } else { 
-                const error = document.getElementById('error-msg');
-                error.style.display = 'block';
-                setTimeout(() => error.style.display = 'none', 3000); // Oculta el error después de 3 segundos
-            } 
-        }
-        
-        function gen() {
-            // Valores por defecto para evitar que la página se rompa si se deja algo vacío
-            const t = document.getElementById('t').value || "ACTUALIZACIÓN PENDIENTE";
-            const i = document.getElementById('i').value || "https://w0.peakpx.com/wallpaper/424/167/HD-wallpaper-cod-mobile-logo-call-of-duty-mobile.jpg";
-            const d = document.getElementById('d').value || "El alto mando no ha proporcionado detalles de esta operación.";
-            // Asegura que el WhatsApp solo contenga números
-            const w = document.getElementById('w').value.replace(/\D/g, '') || "584120000000";
 
-            const data = { 
-                "estrenos": { "titulo": t.toUpperCase(), "imagen": i, "descripcion": d },
-                "config": { "whatsapp": w }
+        function check() {
+            if(document.getElementById('pass').value === KEY) {
+                document.getElementById('login-overlay').style.display = 'none';
+            } else {
+                document.getElementById('err').style.display = 'block';
+            }
+        }
+
+        function gen() {
+            const data = {
+                "estrenos": {
+                    "titulo": document.getElementById('t').value.toUpperCase() || "NUEVA OPERACIÓN",
+                    "imagen": document.getElementById('i').value || "https://via.placeholder.com/800x400",
+                    "descripcion": document.getElementById('d').value || "Sin descripción de inteligencia."
+                },
+                "config": {
+                    "whatsapp": document.getElementById('w').value.replace(/\D/g,'') || "584120000000"
+                }
             };
-            
             document.getElementById('out').textContent = JSON.stringify(data, null, 4);
             document.getElementById('output-section').style.display = 'block';
         }
-        
-        function copy() { 
-            navigator.clipboard.writeText(document.getElementById('out').textContent); 
-            alert('¡DATOS COPIADOS AL PORTAPAPELES! Pégalos en tu data.json'); 
+
+        function copy() {
+            navigator.clipboard.writeText(document.getElementById('out').textContent);
+            alert('¡Código copiado! Ahora pégalo en tu archivo data.json en GitHub.');
         }
 
-        // Permitir usar la tecla Enter para loguearse
-        document.getElementById('pass').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') check();
-        });
+        // Enter para entrar
+        document.getElementById('pass').addEventListener('keypress', function(e){ if(e.key==='Enter') check(); });
     </script>
 </body>
 </html>
