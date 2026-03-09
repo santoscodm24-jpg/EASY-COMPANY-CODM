@@ -1,14 +1,16 @@
 {
     "noticias_url": "https://www.callofduty.com/mobile",
     "torneo": {
-        "titulo": "TORNEO RELÁMPAGO",
-        "costo": "1.5$",
-        "detalles": "Inscripciones abiertas. Cupos limitados."
+        "titulo": "",
+        "costo": "FREE",
+        "detalles": ""
     },
     "hall_fama": [
-        {"nombre": "Ghost", "foto": "https://via.placeholder.com/150"},
-        {"nombre": "Price", "foto": "https://via.placeholder.com/150"}
+        {
+            "nombre": "",
+            "foto": ""
+        }
     ],
-    "tiktok_url": "https://www.tiktok.com/@tuusuario",
-    "whatsapp": "584120000000"
+    "tiktok_url": "https://www.tiktok.com/@easycompany1111?_r=1&_t=ZS-94V00tUDez3",
+    "whatsapp": "1142"
 }
