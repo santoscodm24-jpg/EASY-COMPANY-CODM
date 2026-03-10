@@ -1,33 +1,36 @@
 {
     "noticias_url": "https://www.callofduty.com/mobile",
     "torneo": {
-        "titulo": "",
+        "titulo": "GRAN TORNEO EASY COMPANY",
         "costo": "FREE",
-        "detalles": ""
+        "detalles": "Demuestra quién manda en el campo de batalla. Inscripciones abiertas."
     },
     "hall_fama": [
         {
-            "nombre": "",
-            "foto": ""
+            "nombre": "🥇 ɆȻ-Periko (ORO)",
+            "foto": "https://via.placeholder.com/150"
+        },
+        {
+            "nombre": "🥇 ɆȻ-Tóxicaঔ (ORO)",
+            "foto": "https://via.placeholder.com/150"
+        },
+        {
+            "nombre": "🥈 ɆȻ-daimonkill (PLATA)",
+            "foto": "https://via.placeholder.com/150"
+        },
+        {
+            "nombre": "🥈 ɆȻ-Zudy-D§ (PLATA)",
+            "foto": "https://via.placeholder.com/150"
+        },
+        {
+            "nombre": "🥉 ɆȻ-Molero14 (BRONCE)",
+            "foto": "https://via.placeholder.com/150"
+        },
+        {
+            "nombre": "🥉 ɆȻ-Virginiaএ (BRONCE)",
+            "foto": "https://via.placeholder.com/150"
         }
     ],
     "tiktok_url": "https://www.tiktok.com/@easycompany1111?_r=1&_t=ZS-94V00tUDez3",
     "whatsapp": "1142"
 }
-{
-    "noticias_url": "https://www.callofduty.com/mobile",
-    "torneo": {
-        "titulo": "",
-        "costo": "FREE",
-        "detalles": ""
-    },
-    "hall_fama": [
-        {
-            "nombre": "🥇ɆȻ-Periko 🥈ɆȻ-daimonkill 🥉ɆȻ-Molero14 🥇ɆȻ-Tóxicaঔ 🥈ɆȻ-Zudy-D§ 🥉ɆȻ-Virginiaএ",
-            "foto": ""
-        }
-    ],
-    "tiktok_url": "",
-    "whatsapp": ""
-}
-
