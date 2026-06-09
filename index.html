@@ -280,15 +280,6 @@
 
             <div class="card" data-aos>
                 <div>
-                    <div id="t_tag" class="tag">PENDIENTE</div>
-                    <h2 id="t_tit">SISTEMA EN CARGA...</h2>
-                    <p id="t_det">Estableciendo conexión...</p>
-                </div>
-                <a id="ws_link" href="#" target="_blank" class="btn">ALISTARSE</a>
-            </div>
-
-            <div class="card" data-aos>
-                <div>
                     <div class="tag" style="background: #ff0050;">MEDIOS</div>
                     <h2>TIKTOK EC</h2>
                     <p>Mira nuestras mejores extracciones y momentos de gloria.</p>
@@ -329,34 +320,27 @@
 
                 // Mapeo seguro de enlaces e información general
                 document.getElementById('n_link').href = d.noticias_url || '#';
-                document.getElementById('t_tit').innerText = d.torneo?.titulo || 'TORNEO NO DISPONIBLE';
-                document.getElementById('t_det').innerText = d.torneo?.detalles || 'Próximamente se anunciarán nuevas fechas.';
-                document.getElementById('t_tag').innerText = d.torneo?.costo || 'N/A';
                 document.getElementById('tk_link').href = d.tiktok_url || '#';
-                
-                if (d.whatsapp) {
-                    document.getElementById('ws_link').href = `https://wa.me/${d.whatsapp}?text=Comandante!%20Deseo%20inscribirme%20al%20torneo.`;
-                }
-
-                // Renderizado adaptivo para la lista de Líderes (soporta arrays "lideres" o "hall_fama" del JSON)
-                const listaLideres = d.lideres || d.hall_fama || [];
-                
-                if (listaLideres.length > 0) {
-                    const leadersHTML = listaLideres.map(p => `
-                        <div class="player-row">
-                            <img src="${p.foto || ''}" onerror="this.src='https://via.placeholder.com/150'" alt="Foto de ${p.nombre}">
-                            <div class="player-info">${(p.nombre || 'Soldado').toUpperCase()}</div>
-                        </div>
-                    `).join('');
-                    document.getElementById('leaders').innerHTML = leadersHTML;
-                } else {
-                    document.getElementById('leaders').innerHTML = '<p style="text-align:center; color:#555;">No hay líderes asignados actualmente.</p>';
-                }
 
             } catch (e) { 
-                console.error("ERROR EN EL SISTEMA TÁCTICO:", e); 
-                document.getElementById('leaders').innerHTML = '<p style="text-align:center; color:#ff0050;">ERROR AL CARGAR LÍDERES</p>';
+                console.error("AVISO: Usando configuración de tarjetas local/por defecto debido a un problema con el JSON.", e); 
             }
+
+            // Renderizado de la lista fija de Líderes solicitados
+            const listaLideres = [
+                { nombre: 'ɆȻ-Santos', foto: 'santos.jpg' },
+                { nombre: 'ɆȻ-SakuƦaঐ', foto: 'sakura.jpg' },
+                { nombre: 'ɆȻ-لokeƦツ47', foto: 'joker.jpg' }
+            ];
+            
+            const leadersHTML = listaLideres.map(p => `
+                <div class="player-row">
+                    <img src="${p.foto}" onerror="this.src='https://via.placeholder.com/150'" alt="Foto de ${p.nombre}">
+                    <div class="player-info">${p.nombre}</div>
+                </div>
+            `).join('');
+            
+            document.getElementById('leaders').innerHTML = leadersHTML;
         }
         init();
     </script>
