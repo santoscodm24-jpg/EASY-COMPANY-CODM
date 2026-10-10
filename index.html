@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EASY COMPANY | EC TACTICAL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --gold-glow: rgba(212, 175, 55, 0.4);
+            --bg: #030303;
+            --card: rgba(12, 12, 15, 0.9);
+            --border: #222;
+            --tactical-red: #ff3333;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: #eee;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Fondo de ciudad asediada / Zona de guerra con rejilla táctica */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(212, 175, 55, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212, 175, 55, 0.02) 1px, transparent 1px);
+            background-size: 35px 35px;
+            z-index: -2;
+        }
+
+        /* Contenedor de Efecto de Humo / Neblina de Guerra Animado */
+        .war-smoke-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+            opacity: 0.65;
+        }
+
+        .smoke-cloud {
+            position: absolute;
+            background: radial-gradient(circle, rgba(120, 115, 105, 0.25) 0%, rgba(40, 35, 30, 0.1) 50%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(40px);
+            animation: driftSmoke 20s infinite linear;
+        }
+
+        .smoke-cloud:nth-child(1) { width: 600px; height: 600px; bottom: -150px; left: -100px; animation-duration: 25s; }
+        .smoke-cloud:nth-child(2) { width: 800px; height: 800px; top: -200px; right: -200px; animation-duration: 35s; animation-direction: reverse; }
+        .smoke-cloud:nth-child(3) { width: 500px; height: 500px; top: 40%; left: 20%; animation-duration: 18s; opacity: 0.4; }
+        .smoke-cloud:nth-child(4) { width: 700px; height: 700px; bottom: 10%; right: 10%; animation-duration: 28s; }
+
+        @keyframes driftSmoke {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(80px, -50px) scale(1.15); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+
+        /* Animación de escaneo HUD táctico */
+        body::after {
+            content: "";
+            position: fixed;
+            top: -100%; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(212, 175, 55, 0.04), transparent);
+            animation: scan 7s linear infinite;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        @keyframes scan {
+            0% { top: -100%; }
+            100% { top: 100%; }
+        }
+
+        /* Controles de Sonido Táctico */
+        .audio-controls {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 999;
+            display: flex;
+            gap: 10px;
+        }
+
+        .audio-btn {
+            background: rgba(10, 10, 12, 0.9);
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            font-family: 'Black Ops One', cursive;
+            padding: 10px 16px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            border-radius: 4px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.8), 0 0 10px var(--gold-glow);
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        .audio-btn:hover {
+            background: var(--gold);
+            color: #000;
+            box-shadow: 0 0 20px var(--gold);
+        }
+
+        header {
+            height: 48vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to bottom, rgba(3,3,3,0.65), var(--bg)), 
+                        url('easy.jpg') center/cover no-repeat;
+            border-bottom: 3px solid var(--gold);
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8), inset 0 0 50px rgba(0,0,0,0.9);
+            position: relative;
+        }
+
+        header::before {
+            content: "✦ COMBAT ZONE ACTIVE ✦";
+            position: absolute;
+            top: 20px;
+            font-size: 0.75rem;
+            letter-spacing: 6px;
+            color: var(--gold);
+            opacity: 0.8;
+            font-weight: 700;
+        }
+
+        h1 {
+            font-family: 'Black Ops One', cursive;
+            color: var(--gold);
+            font-size: clamp(2.5rem, 10vw, 5.2rem);
+            margin: 0;
+            text-shadow: 0 0 20px var(--gold-glow), 0 0 40px rgba(0,0,0,0.9), 0 2px 4px #000;
+            letter-spacing: 5px;
+        }
+
+        .status-bar {
+            font-size: 0.85rem;
+            letter-spacing: 5px;
+            color: #aaa;
+            margin-top: 15px;
+            text-transform: uppercase;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 5px 18px;
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--gold);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: -50px auto 50px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Alerta Táctica Verdansk */
+        .verdansk-alert {
+            background: linear-gradient(135deg, rgba(22, 18, 5, 0.95), rgba(8, 8, 10, 0.95));
+            border: 2px solid var(--gold);
+            border-left: 8px solid var(--tactical-red);
+            padding: 30px;
+            margin-bottom: 35px;
+            border-radius: 6px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.8), 0 0 25px rgba(212, 175, 55, 0.2), inset 0 0 30px rgba(255, 51, 51, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .verdansk-alert::before {
+            content: "CLASSIFIED // INTEL CODM";
+            position: absolute;
+            top: 12px; right: 20px;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            color: var(--tactical-red);
+            font-weight: 700;
+        }
+
+        .verdansk-alert h2 {
+            font-family: 'Black Ops One', cursive;
+            color: var(--gold);
+            font-size: 1.6rem;
+            margin: 5px 0 12px 0;
+            text-shadow: 0 0 12px var(--gold-glow);
+            letter-spacing: 2px;
+        }
+
+        .verdansk-alert p {
+            color: #ddd;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .verdansk-alert strong {
+            color: var(--gold);
+            text-shadow: 0 0 8px var(--gold-glow);
+        }
+
+        /* Grid unificado */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 30px;
+            border-radius: 6px;
+            position: relative;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--gold);
+            box-shadow: 0 0 12px var(--gold);
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: var(--gold);
+            box-shadow: 0 15px 45px rgba(0,0,0,0.9), 0 0 20px rgba(212, 175, 55, 0.2);
+        }
+
+        h2 {
+            font-family: 'Black Ops One', cursive;
+            color: var(--gold);
+            font-size: 1.4rem;
+            margin: 10px 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        p {
+            color: #ccc;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .btn {
+            display: block;
+            text-align: center;
+            padding: 14px;
+            background: rgba(0,0,0,0.5);
+            color: var(--gold);
+            border: 1px solid var(--gold);
+            font-weight: bold;
+            text-decoration: none;
+            font-family: 'Black Ops One', cursive;
+            margin-top: auto;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        }
+
+        .btn::after {
+            content: "";
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: var(--gold);
+            transition: transform 0.3s ease;
+            z-index: -1;
+        }
+
+        .btn:hover { 
+            color: #030303; 
+            box-shadow: 0 0 20px var(--gold-glow);
+        }
+        
+        .btn:hover::after { 
+            transform: translateX(100%);
+        }
+
+        .tag {
+            align-self: flex-start;
+            background: #b30000;
+            color: white;
+            font-size: 0.75rem;
+            padding: 5px 14px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            clip-path: polygon(12% 0, 100% 0, 88% 100%, 0% 100%);
+            letter-spacing: 1px;
+            box-shadow: 0 0 10px rgba(179,0,0,0.5);
+        }
+
+        /* --- SECCIÓN LÍDERES --- */
+        .leaders-section {
+            margin-top: 70px;
+        }
+
+        .leaders-title {
+            font-family: 'Black Ops One', cursive;
+            color: var(--gold);
+            margin-bottom: 35px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            text-shadow: 0 0 10px var(--gold-glow);
+        }
+
+        .leaders-title::after {
+            content: "";
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), transparent);
+            flex: 1;
+            box-shadow: 0 0 8px var(--gold);
+        }
+
+        .leaders-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .player-row {
+            background: linear-gradient(90deg, rgba(18, 18, 22, 0.95), rgba(10, 10, 12, 0.95));
+            padding: 16px 25px;
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--border);
+            border-left: 6px solid var(--gold);
+            border-radius: 6px;
+            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+        }
+
+        .player-row::after {
+            content: "COMMANDER";
+            position: absolute;
+            right: 25px;
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            color: #555;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+        }
+
+        .player-row:hover {
+            border-color: var(--gold);
+            background: linear-gradient(90deg, rgba(28, 28, 35, 0.95), rgba(18, 18, 22, 0.95));
+            transform: translateX(8px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 15px rgba(212, 175, 55, 0.15);
+        }
+
+        .player-row:hover::after {
+            color: var(--gold);
+        }
+
+        .player-row img {
+            width: 60px; height: 60px;
+            border-radius: 50%; 
+            border: 2px solid var(--gold);
+            object-fit: cover;
+            box-shadow: 0 0 12px var(--gold-glow);
+        }
+
+        .player-info {
+            margin-left: 22px;
+            color: var(--gold);
+            font-family: 'Black Ops One', cursive;
+            font-size: 1.3rem;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.9);
+        }
+
+        footer {
+            margin-top: 100px; 
+            padding: 40px;
+            background: #010101; 
+            border-top: 2px solid var(--border);
+            text-align: center;
+            box-shadow: inset 0 10px 20px rgba(0,0,0,0.9);
+        }
+
+        .admin-btn { 
+            color: #555; 
+            text-decoration: none; 
+            font-size: 0.75rem; 
+            letter-spacing: 2px;
+            transition: color 0.3s; 
+            font-weight: 700;
+        }
+        .admin-btn:hover { color: var(--gold); text-shadow: 0 0 8px var(--gold-glow); }
+
+        [data-aos] { opacity: 0; transform: translateY(20px); transition: 0.6s all ease-out; }
+        .visible { opacity: 1 !important; transform: translateY(0) !important; }
+    </style>
+</head>
+<body>
+
+    <!-- Capa de Humo de Guerra / Ciudad Asediada -->
+    <div class="war-smoke-container">
+        <div class="smoke-cloud"></div>
+        <div class="smoke-cloud"></div>
+        <div class="smoke-cloud"></div>
+        <div class="smoke-cloud"></div>
+    </div>
+
+    <!-- Panel flotante de controles de audio tácticos -->
+    <div class="audio-controls">
+        <button class="audio-btn" id="toggleAmbience">🔊 AMBIENTE TÁCTICO: OFF</button>
+        <button class="audio-btn" id="playRadio">📻 TRANSMISIÓN RADIO</button>
+    </div>
+
+    <!-- Elementos de Audio -->
+    <audio id="heliAudio" loop preload="auto" autoplay>
+        <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_145d2f8cb0.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="radioAudio" preload="auto">
+        <source src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_27d7ec82ef.mp3" type="audio/mpeg">
+    </audio>
+
+    <header>
+        <h1>EASY COMPANY</h1>
+        <div class="status-bar">SISTEMA HQ OPERATIVO // JUNIO 2026</div>
+    </header>
+
+    <main class="container">
+        <!-- Destacado del Despliegue del Mapa Verdansk -->
+        <div class="verdansk-alert" data-aos>
+            <div class="tag" style="margin-bottom: 8px;">DESPLIEGUE GLOBAL</div>
+            <h2>LLEGADA DEL EMBLEMÁTICO MAPA: VERDANSK</h2>
+            <p>Soldados, preparen su equipamiento táctico. El legendario mapa <strong>Verdansk</strong> se incorpora oficialmente al campo de batalla de Call of Duty Mobile el próximo <strong>12 de noviembre de 2026</strong>[cite: 2]. Aseguren posiciones y manténganse listos para la extracción[cite: 2].</p>
+        </div>
+
+        <div class="grid">
+            <div class="card" data-aos>
+                <div>
+                    <div class="tag">INTELIGENCIA</div>
+                    <h2>NOTICIAS CODM</h2>
+                    <p>Actualizaciones oficiales de Call of Duty Mobile en tiempo real[cite: 2].</p>
+                </div>
+                <a id="n_link" href="#" target="_blank" class="btn">ACCEDER</a>
+            </div>
+
+            <div class="card" data-aos>
+                <div>
+                    <div class="tag" style="background: #1faf4c; box-shadow: 0 0 10px rgba(31,175,76,0.5);">COMUNIDAD</div>
+                    <h2>UNIRSE AL CLAN</h2>
+                    <p>Entra a nuestra base de operaciones en WhatsApp para coordinar el despliegue[cite: 2].</p>
+                </div>
+                <a href="https://chat.whatsapp.com/Gia1nuK1IyBDaq4C2muqAH" target="_blank" class="btn" style="border-color:#25D366; color:#25D366;">UNIRSE AHORA</a>
+            </div>
+
+            <div class="card" data-aos>
+                <div>
+                    <div class="tag" style="background: #e60045; box-shadow: 0 0 10px rgba(230,0,69,0.5);">MEDIOS</div>
+                    <h2>TIKTOK EC</h2>
+                    <p>Mira nuestras mejores extracciones y momentos de gloria[cite: 2].</p>
+                </div>
+                <a id="tk_link" href="#" target="_blank" class="btn" style="border-color:#ff0050; color:#ff0050;">VER VIDEOS</a>
+            </div>
+        </div>
+
+        <section class="leaders-section" data-aos>
+            <div class="leaders-title">
+                <h2>LÍDERES</h2>
+            </div>
+            <div id="leaders" class="leaders-list"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p style="font-size: 0.8rem; color: #555; letter-spacing: 1px;">&copy; 2026 EASY COMPANY[cite: 2]. TODOS LOS DERECHOS RESERVADOS[cite: 2]. SITIO WEB DE COLABORACIÓN HECHO POR "Smith Business Solutions"[cite: 2].</p>
+        <a href="admin.html" class="admin-btn">[ SISTEMA ADMINISTRATIVO ]</a>
+    </footer>
+
+    <script>
+        const heliAudio = document.getElementById('heliAudio');
+        const radioAudio = document.getElementById('radioAudio');
+        const toggleBtn = document.getElementById('toggleAmbience');
+        const radioBtn = document.getElementById('playRadio');
+
+        heliAudio.volume = 0.25;
+        radioAudio.volume = 0.5;
+
+        let ambienceActive = false;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const playPromise = heliAudio.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    ambienceActive = true;
+                    toggleBtn.innerHTML = '🔊 AMBIENTE TÁCTICO: ON';
+                    toggleBtn.style.borderColor = '#25D366';
+                    toggleBtn.style.color = '#25D366';
+                }).catch(() => {
+                    const unlockAudio = () => {
+                        heliAudio.play().then(() => {
+                            ambienceActive = true;
+                            toggleBtn.innerHTML = '🔊 AMBIENTE TÁCTICO: ON';
+                            toggleBtn.style.borderColor = '#25D366';
+                            toggleBtn.style.color = '#25D366';
+                            document.removeEventListener('click', unlockAudio);
+                            document.removeEventListener('touchstart', unlockAudio);
+                        });
+                    };
+                    document.addEventListener('click', unlockAudio);
+                    document.addEventListener('touchstart', unlockAudio);
+                });
+            }
+        });
+
+        toggleBtn.addEventListener('click', () => {
+            if (!ambienceActive) {
+                heliAudio.play().then(() => {
+                    ambienceActive = true;
+                    toggleBtn.innerHTML = '🔊 AMBIENTE TÁCTICO: ON';
+                    toggleBtn.style.borderColor = '#25D366';
+                    toggleBtn.style.color = '#25D366';
+                });
+            } else {
+                heliAudio.pause();
+                ambienceActive = false;
+                toggleBtn.innerHTML = '🔊 AMBIENTE TÁCTICO: ON';
+                toggleBtn.style.borderColor = 'var(--gold)';
+                toggleBtn.style.color = 'var(--gold)';
+            }
+        });
+
+        radioBtn.addEventListener('click', () => {
+            radioAudio.currentTime = 0;
+            radioAudio.play().catch(err => console.log('Error de radio:', err));
+        });
+
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playBeep(freq, type, duration) {
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + duration);
+        }
+
+        document.querySelectorAll('.btn, .card, .player-row, .audio-btn').forEach(el => {
+            el.addEventListener('mouseenter', () => playBeep(800, 'sine', 0.08));
+            el.addEventListener('click', () => playBeep(400, 'square', 0.12));
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { 
+                if (entry.isIntersecting) entry.target.classList.add('visible'); 
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('[data-aos]').forEach(el => observer.observe(el));
+
+        async function init() {
+            try {
+                const r = await fetch('data.json?v=' + Date.now());
+                if (!r.ok) throw new Error("No se pudo obtener el archivo de datos.");
+                const d = await r.json();
+
+                document.getElementById('n_link').href = d.noticias_url || '#';
+                document.getElementById('tk_link').href = d.tiktok_url || '#';
+
+            } catch (e) { 
+                console.error("AVISO: Usando configuración por defecto.", e); 
+            }
+
+            const listaLideres = [
+                { nombre: 'ɆȻ-Santos', foto: 'santos.jpg' },
+                { nombre: 'ɆȻ-لokeƦツ47', foto: 'joker.jpg' }
+            ];
+            
+            const leadersHTML = listaLideres.map(p => `
+                <div class="player-row">
+                    <img src="${p.foto}" onerror="this.src='https://via.placeholder.com/150'" alt="Foto de ${p.nombre}">
+                    <div class="player-info">${p.nombre}</div>
+                </div>
+            `).join('');
+            
+            document.getElementById('leaders').innerHTML = leadersHTML;
+        }
+        init();
+    </script>
+</body>
+</html>
